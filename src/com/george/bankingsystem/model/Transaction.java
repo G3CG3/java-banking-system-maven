@@ -4,13 +4,15 @@ package com.george.bankingsystem.model;
 import java.time.LocalDateTime;
 
 public class Transaction {
+    private static int nextId;
+
     private final int id;
     private final TransactionType type;
     private final double amount;
     private final LocalDateTime timestamp;
 
-    public Transaction(int id, TransactionType type, double amount) {
-        this.id = id;
+    public Transaction(TransactionType type, double amount) {
+        this.id = nextId++;
         this.type = type;
         this.amount = amount;
         this.timestamp = LocalDateTime.now();
