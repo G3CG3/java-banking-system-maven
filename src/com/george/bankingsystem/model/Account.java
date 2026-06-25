@@ -10,7 +10,6 @@ public class Account {
     private final String ownerName;
     private double balance;
     private final List<Transaction> transactions;
-    private double totalDeposits;
 
     public Account(int id, String ownerName, double balance) {
         this.id = id;
@@ -45,15 +44,24 @@ public class Account {
     }
 
     public void deposit(double amount) {
+        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount);
+        this.deposit(amount, transaction);
+    }
+
+    void deposit(double amount, Transaction transaction) {
         if (isInvalidAmount(amount)) {
             throw new IllegalArgumentException("The depositing amount should be a positive number");
         }
         balance += amount;
-        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount);
         transactions.add(transaction);
     }
 
     public void withdraw(double amount) {
+        Transaction transaction = new Transaction(TransactionType.WITHDRAW, amount);
+        this.withdraw(amount, transaction);
+    }
+
+    void withdraw(double amount, Transaction transaction) {
         if (isInvalidAmount(amount)) {
             throw new IllegalArgumentException("The withdrawing amount should be a positive number");
         }
@@ -61,7 +69,6 @@ public class Account {
             throw new InsufficientFundsException("You don't have sufficient funds in your account for the withdrawal");
         }
         balance -= amount;
-        Transaction transaction = new Transaction(TransactionType.WITHDRAW, amount);
         transactions.add(transaction);
     }
 

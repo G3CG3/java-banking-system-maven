@@ -4,17 +4,25 @@ package com.george.bankingsystem.model;
 import java.time.LocalDateTime;
 
 public class Transaction {
-    private static int nextId;
+    private static int nextId = 1;
 
     private final int id;
     private final TransactionType type;
     private final double amount;
     private final LocalDateTime timestamp;
+    private final Integer fromAccountId;
+    private final Integer toAccountId;
 
     public Transaction(TransactionType type, double amount) {
+        this(type, amount, null, null);
+    }
+
+    public Transaction(TransactionType type, double amount, Integer fromAccountId, Integer toAccountId) {
         this.id = nextId++;
         this.type = type;
         this.amount = amount;
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
         this.timestamp = LocalDateTime.now();
     }
 
@@ -32,6 +40,14 @@ public class Transaction {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    public Integer getFromAccountId() {
+        return fromAccountId;
+    }
+
+    public Integer getToAccountId() {
+        return toAccountId;
     }
 
     @Override

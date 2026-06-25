@@ -18,7 +18,6 @@ public class Bank {
         boolean exists = accounts.stream()
                         .anyMatch(existingAccount -> existingAccount.getId() == account.getId());
         if (exists) throw new DuplicateAccountException("An account with this id already exists");
-        accounts.add(account);
         */
 
         if (accounts.stream()
@@ -30,8 +29,8 @@ public class Bank {
         for (Account existingAccount : accounts) {
             if (existingAccount.getId() == account.getId()) throw new DuplicateAccountException("An account with this id already exists");
         }
-        accounts.add(account);
         */
+        accounts.add(account);
     }
 
     public Account findAccountById(int id) {
@@ -50,9 +49,11 @@ public class Bank {
     }
 
     public void transfer(int fromAccountId, int toAccountId, double amount) {
+        Account toAccount  = findAccountById(toAccountId);
         Account fromAccount = findAccountById(fromAccountId);
-        Account toAccount = findAccountById(toAccountId);
-        fromAccount.withdraw(amount);
-        toAccount.deposit(amount);
+        Transaction transactionOut = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
+        Transaction transactionIn = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
+        toAccount.deposit(amount, transactionIn);
+        fromAccount.withdraw(amount, transactionOut);
     }
 }
