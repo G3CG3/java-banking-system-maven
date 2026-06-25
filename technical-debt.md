@@ -4,7 +4,11 @@
 
 ### Account
 
-- Protect transaction history from external modification
+#### Design
+- Protect transaction history from external modification.
+
+#### Refactoring Opportunities
+- Evaluate extracting common reporting logic (`getTotalByType`) if reporting methods continue to grow.
 
 ### Bank
 

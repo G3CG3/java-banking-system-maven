@@ -10,6 +10,7 @@ public class Account {
     private final String ownerName;
     private double balance;
     private final List<Transaction> transactions;
+    private double totalDeposits;
 
     public Account(int id, String ownerName, double balance) {
         this.id = id;
@@ -66,5 +67,30 @@ public class Account {
 
     private boolean isInvalidAmount(double amount) {
         return amount <= 0;
+    }
+
+    public double getTotalDeposits() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.DEPOSIT )
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+    public double getTotalWithdrawals() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.WITHDRAW)
+                .mapToDouble((Transaction::getAmount))
+                .sum();
+    }
+
+    public int getTransactionCount() {
+        return transactions.size();
+    }
+
+    public double getAverageTransactionAmount() {
+        return transactions.stream()
+                .mapToDouble(Transaction::getAmount)
+                .average()
+                .orElse(0.0); // Throw exception is an alternative, but new accounts can have 0.0 as average
     }
 }
