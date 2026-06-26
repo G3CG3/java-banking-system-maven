@@ -34,6 +34,30 @@ public class Account {
         return transactions;
     }
 
+    public List<Transaction> getDeposits() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.DEPOSIT)
+                .toList();
+    }
+
+    public List<Transaction> getWithdrawals() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.WITHDRAW)
+                .toList();
+    }
+
+    public List<Transaction> getTransfers() {
+        return transactions.stream()
+                .filter(t -> t.getType() == TransactionType.TRANSFER)
+                .toList();
+    }
+
+    public List<Transaction> getTransactionsAbove(double amount) {
+        return transactions.stream()
+                .filter(t -> t.getAmount() > amount)
+                .toList();
+    }
+
     @Override
     public String toString() {
         return "Account{" +

@@ -10,6 +10,10 @@ void main() {
     bank.addAccount(acc2);
 
     bank.transfer(2, 1, 150.0);
-    System.out.println(acc1.getBalance());
-    System.out.println(acc2.getBalance());
+    acc1.deposit(500.0);
+    acc1.withdraw(200.0);
+    System.out.println(acc1.getDeposits());
+    System.out.println(acc1.getWithdrawals());
+    System.out.println(acc1.getTransfers());
+    System.out.println(acc1.getTransactionsAbove(300.0));
 }
