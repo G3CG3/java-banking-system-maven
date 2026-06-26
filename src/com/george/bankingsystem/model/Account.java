@@ -31,7 +31,7 @@ public class Account {
     }
 
     public List<Transaction> getTransactions() {
-        return transactions;
+        return List.copyOf(transactions);
     }
 
     public List<Transaction> getDeposits() {

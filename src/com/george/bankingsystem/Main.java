@@ -1,5 +1,6 @@
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
+import com.george.bankingsystem.model.Transaction;
 
 void main() {
     Account acc1 = new Account(1, "George", 350.0);
@@ -12,8 +13,16 @@ void main() {
     bank.transfer(2, 1, 150.0);
     acc1.deposit(500.0);
     acc1.withdraw(200.0);
-    System.out.println(acc1.getDeposits());
-    System.out.println(acc1.getWithdrawals());
-    System.out.println(acc1.getTransfers());
-    System.out.println(acc1.getTransactionsAbove(300.0));
+
+    System.out.println(acc1.getTransactionCount());
+
+    List<Transaction> list = acc1.getTransactions();
+
+    try {
+        list.clear();
+    } catch (UnsupportedOperationException e) {
+        System.out.println("Cannot modify transaction history.");
+    }
+
+    System.out.println(acc1.getTransactionCount());
 }
