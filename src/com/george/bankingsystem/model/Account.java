@@ -3,6 +3,7 @@ package com.george.bankingsystem.model;
 import com.george.bankingsystem.exceptions.InsufficientFundsException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Account {
@@ -123,5 +124,17 @@ public class Account {
                 .mapToDouble(Transaction::getAmount)
                 .average()
                 .orElse(0.0); // Throw exception is an alternative, but new accounts can have 0.0 as average
+    }
+
+    public List<Transaction> getTransactionsSortedByAmount() {
+        return transactions.stream()
+                .sorted(Comparator.comparing(Transaction::getAmount).reversed())
+                .toList();
+    }
+
+    public List<Transaction> getTransactionsSortedByDate() {
+        return transactions.stream()
+                .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
+                .toList();
     }
 }

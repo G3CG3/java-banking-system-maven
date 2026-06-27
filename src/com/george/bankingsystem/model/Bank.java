@@ -82,4 +82,16 @@ public class Bank {
                 .average()
                 .orElse(0.0);
     }
+
+    public List<Account> getAccountsSortedByBalance() {
+        return accounts.stream()
+                .sorted(Comparator.comparing(Account::getBalance).reversed())
+                .toList();
+    }
+
+    public List<Account> getAccountsSortedByOwnerName() {
+        return accounts.stream()
+                .sorted(Comparator.comparing(Account::getOwnerName, String.CASE_INSENSITIVE_ORDER))
+                .toList();
+    }
 }
