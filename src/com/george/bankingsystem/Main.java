@@ -33,16 +33,21 @@ void main() {
     acc2.withdraw(500);
     bank.transfer(6, 2, 500);
 
-    System.out.println("Accounts sorted by balance: ");
+    System.out.println("===== BANK DASHBOARD =====");
     System.out.println();
-    System.out.println(bank.getAccountsSortedByBalance());
-    System.out.println("Accounts sorted by owner name: ");
+    System.out.println("Accounts: " + bank.getAccountsCount());
     System.out.println();
-    System.out.println(bank.getAccountsSortedByOwnerName());
-    System.out.println("Transactions sorted by amount: ");
+    System.out.println("Positive balances: " + bank.getAccountsWithPositiveBalance());
     System.out.println();
-    System.out.println(acc1.getTransactionsSortedByAmount());
-    System.out.println("Transactions sorted by date: ");
+    System.out.println("Total balance: " + bank.getTotalBankBalance());
     System.out.println();
-    System.out.println(acc1.getTransactionsSortedByDate());
+    System.out.println("Average balance: " + bank.getAverageBalance());
+    System.out.println();
+    System.out.println("Highest balance: " + bank.getHighestBalance());
+    System.out.println();
+    System.out.println("Lowest balance: " + bank.getLowestBalance());
+    System.out.println();
+    System.out.println("Richest account: " + bank.getRichestAccount());
+    System.out.println();
+    System.out.println("==========================");
 }

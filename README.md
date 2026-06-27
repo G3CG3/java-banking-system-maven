@@ -15,6 +15,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Account sorting
 - Transaction sorting
 - Bank reporting
+- Bank statistics
 - Transfer audit trail
 - Custom exception handling
 - Account validation
@@ -39,6 +40,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Account sorting
 - Transaction sorting
 - Bank reporting
+- Bank statistics
 - Transfer tracking
 - Business rule validation
 - Custom exceptions

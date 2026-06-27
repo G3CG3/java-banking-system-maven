@@ -94,4 +94,29 @@ public class Bank {
                 .sorted(Comparator.comparing(Account::getOwnerName, String.CASE_INSENSITIVE_ORDER))
                 .toList();
     }
+
+    public long getAccountsCount() {
+        return accounts.stream()
+                .count();
+    }
+
+    public long getAccountsWithPositiveBalance() {
+        return accounts.stream()
+                .filter(account -> account.getBalance() > 0)
+                .count();
+    }
+
+    public double getHighestBalance() {
+        return accounts.stream()
+                .mapToDouble(Account::getBalance)
+                .max()
+                .orElse(0.0);
+    }
+
+    public double getLowestBalance() {
+        return accounts.stream()
+                .mapToDouble(Account::getBalance)
+                .min()
+                .orElse(0.0);
+    }
 }
