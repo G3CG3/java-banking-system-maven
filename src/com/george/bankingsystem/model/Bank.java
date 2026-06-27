@@ -4,6 +4,7 @@ import com.george.bankingsystem.exceptions.AccountNotFoundException;
 import com.george.bankingsystem.exceptions.DuplicateAccountException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Bank {
@@ -55,5 +56,30 @@ public class Bank {
         Transaction transactionIn = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
         toAccount.deposit(amount, transactionIn);
         fromAccount.withdraw(amount, transactionOut);
+    }
+
+    public List<Account> findAccountsByOwner(String ownerName) {
+        return accounts.stream()
+                .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName))
+                .toList();
+    }
+
+    public double getTotalBankBalance() {
+        return accounts.stream()
+                .mapToDouble(Account::getBalance)
+                .sum();
+    }
+
+    public Account getRichestAccount() {
+        return accounts.stream()
+                .max(Comparator.comparing(Account::getBalance))
+                .orElseThrow(() -> new IllegalStateException("There are no accounts in the system."));
+    }
+
+    public double getAverageBalance() {
+        return accounts.stream()
+                .mapToDouble(Account::getBalance)
+                .average()
+                .orElse(0.0);
     }
 }

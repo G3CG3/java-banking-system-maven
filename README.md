@@ -11,6 +11,8 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Transaction history tracking
 - Transaction reporting
 - Transaction filtering
+- Account search
+- Bank reporting
 - Transfer audit trail
 - Custom exception handling
 - Account validation
@@ -31,6 +33,8 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Transaction history
 - Transaction reporting
 - Transaction filtering
+- Account search
+- Bank reporting
 - Transfer tracking
 - Business rule validation
 - Custom exceptions
