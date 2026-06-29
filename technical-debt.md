@@ -14,3 +14,7 @@
 ### Transaction
 
 - Replace static id generation when database is introduced
+- 
+### Architecture
+
+- Extract transfer logic into a dedicated TransferService after redesigning the Account API.

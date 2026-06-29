@@ -1,7 +1,7 @@
 package com.george.bankingsystem.model;
 
-import com.george.bankingsystem.exceptions.AccountNotFoundException;
 import com.george.bankingsystem.exceptions.DuplicateAccountException;
+import com.george.bankingsystem.service.AccountSearchService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,9 +9,11 @@ import java.util.List;
 
 public class Bank {
     private final List<Account> accounts;
+    private final AccountSearchService accountSearchService;
 
     public Bank() {
-        accounts = new ArrayList<>();
+        this.accounts = new ArrayList<>();
+        this.accountSearchService = new AccountSearchService(this);
     }
 
     public void addAccount(Account account) {
@@ -34,34 +36,13 @@ public class Bank {
         accounts.add(account);
     }
 
-    public Account findAccountById(int id) {
-       return accounts.stream()
-               .filter(a -> a.getId() == id)
-               .findFirst()
-               .orElseThrow(() -> new AccountNotFoundException("The account with id " + id + " could not be found"));
-
-        /*
-        for (Account acc : accounts) {
-            if (acc.getId() == id)
-                return acc;
-        }
-        throw new AccountNotFoundException("The account with id " + id + " could not be found");
-         */
-    }
-
     public void transfer(int fromAccountId, int toAccountId, double amount) {
-        Account toAccount  = findAccountById(toAccountId);
-        Account fromAccount = findAccountById(fromAccountId);
+        Account toAccount  = accountSearchService.findAccountById(toAccountId);
+        Account fromAccount = accountSearchService.findAccountById(fromAccountId);
         Transaction transactionOut = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
         Transaction transactionIn = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
         toAccount.deposit(amount, transactionIn);
         fromAccount.withdraw(amount, transactionOut);
-    }
-
-    public List<Account> findAccountsByOwner(String ownerName) {
-        return accounts.stream()
-                .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName))
-                .toList();
     }
 
     public double getTotalBankBalance() {
@@ -118,5 +99,9 @@ public class Bank {
                 .mapToDouble(Account::getBalance)
                 .min()
                 .orElse(0.0);
+    }
+
+    public List<Account> getAccounts() {
+        return List.copyOf(accounts);
     }
 }

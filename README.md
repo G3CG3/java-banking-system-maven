@@ -19,6 +19,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Transfer audit trail
 - Custom exception handling
 - Account validation
+- Service layer (initial refactoring)
 
 ## Technologies
 
@@ -26,6 +27,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Object-Oriented Programming (OOP)
 - Collections Framework
 - Java Streams API
+- Service Layer Architecture
 
 ## Current Status
 
