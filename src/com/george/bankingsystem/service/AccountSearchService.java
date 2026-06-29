@@ -33,4 +33,19 @@ public class AccountSearchService {
                 .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName))
                 .toList();
     }
+
+    public List<Account> findAccountsWithBalanceAbove(double amount) {
+        return bank.getAccounts().stream()
+                .filter(account -> account.getBalance() > amount)
+                .toList();
+    }
+
+    public List<Account> findAccountsByOwnerWithBalanceAbove(
+            String ownerName,
+            double amount
+    ) {
+        return bank.getAccounts().stream()
+                .filter(account -> account.getOwnerName().equals(ownerName) && account.getBalance() > amount)
+                .toList();
+    }
 }

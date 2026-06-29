@@ -148,4 +148,13 @@ public class Account {
                 .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
                 .toList();
     }
+
+    public List<Transaction> getTransactionsBetween(
+            double min,
+            double max
+    ) {
+        return transactions.stream()
+                .filter(t -> t.getAmount() >= min && t.getAmount() <= max)
+                .toList();
+    }
 }

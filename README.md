@@ -20,6 +20,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Custom exception handling
 - Account validation
 - Service layer (initial refactoring)
+- Advanced account filtering
 
 ## Technologies
 
@@ -47,6 +48,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Business rule validation
 - Custom exceptions
 - Domain validation
+- Advanced account filtering
 
 ### Planned
 
