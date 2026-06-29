@@ -46,6 +46,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Transfer tracking
 - Business rule validation
 - Custom exceptions
+- Domain validation
 
 ### Planned
 

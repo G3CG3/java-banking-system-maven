@@ -1,6 +1,8 @@
 package com.george.bankingsystem.model;
 
 import com.george.bankingsystem.exceptions.InsufficientFundsException;
+import com.george.bankingsystem.exceptions.InvalidOwnerNameException;
+import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,8 +16,17 @@ public class Account {
 
     public Account(int id, String ownerName, double balance) {
         this.id = id;
+
+        if (ownerName == null || ownerName.isBlank()) {
+            throw new InvalidOwnerNameException("You must provide a name for the owner of the account.");
+        }
         this.ownerName = ownerName;
+
+        if (balance < 0) {
+            throw new NegativeInitialBalanceException("The initial balance should be a non negative number");
+        }
         this.balance = balance;
+
         this.transactions = new ArrayList<>();
     }
 

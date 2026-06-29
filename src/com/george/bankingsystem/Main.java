@@ -1,9 +1,21 @@
+import com.george.bankingsystem.exceptions.InvalidOwnerNameException;
+import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
 
 void main() {
-    Account acc1 = new Account(1, "George", 350.0);
-    Account acc2 = new Account(2, "Maria", 900.0);
+    try {
+        Account acc1 = new Account(1, " ", 100.0);
+    } catch (InvalidOwnerNameException e) {
+        System.out.println(e.getMessage());
+    }
+
+    try {
+        Account acc2 = new Account(2, "George", -100.0);
+    } catch (NegativeInitialBalanceException e) {
+        System.out.println(e.getMessage());
+    }
+
     Account acc3 = new Account(3, "george", 1000.0);
     Account acc4 = new Account(4, "Nick", 500.0);
     Account acc5 = new Account(5, "Zachary", 100.0);
@@ -11,26 +23,24 @@ void main() {
     Account acc7 = new Account(7, "Maria", 400.0);
     Account acc8 = new Account(8, "Brodie", 650.0);
     Account acc9 = new Account(9, "Vance", 4000.0);
-    Account acc10 = new Account(10, "Thomas", 50.0);
 
     Bank bank = new Bank();
-    bank.addAccount(acc1);
-    bank.addAccount(acc2);
-    bank.addAccount(acc3);
+    //bank.addAccount(acc2);
+    //bank.addAccount(acc3);
     bank.addAccount(acc4);
     bank.addAccount(acc5);
     bank.addAccount(acc6);
     bank.addAccount(acc7);
     bank.addAccount(acc8);
     bank.addAccount(acc9);
-    bank.addAccount(acc10);
+    //bank.addAccount(acc10);
 
-    acc1.deposit(500);
-    acc2.deposit(400);
+    //acc1.deposit(500);
+    //acc2.deposit(400);
     acc3.deposit(750);
-    acc1.withdraw(250);
-    acc1.withdraw(50);
-    acc2.withdraw(500);
+    //acc1.withdraw(250);
+    //acc1.withdraw(50);
+    //acc2.withdraw(500);
     bank.transfer(6, 2, 500);
 
     System.out.println("===== BANK DASHBOARD =====");
