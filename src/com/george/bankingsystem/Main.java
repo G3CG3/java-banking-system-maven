@@ -5,7 +5,7 @@ import com.george.bankingsystem.service.AccountSearchService;
 void main() {
     Account acc3 = new Account(3, "George", 1000.0);
     Account acc4 = new Account(4, "Nick", 500.0);
-    Account acc5 = new Account(5, "Zachary", 100.0);
+    Account acc5 = new Account(5, "George", 100.0);
     Account acc6 = new Account(6, "Helen", 1000.0);
     Account acc7 = new Account(7, "Maria", 400.0);
     Account acc8 = new Account(8, "Brodie", 650.0);
@@ -21,16 +21,21 @@ void main() {
     bank.addAccount(acc9);
 
     acc3.deposit(750);
+    acc3.deposit(250);
+    acc3.withdraw(250);
+    acc3.withdraw(100);
 
     bank.transfer(6, 8, 500);
 
     AccountSearchService accountSearchService = new AccountSearchService(bank);
-    System.out.println("The accounts of the owner named George:");
-    System.out.println(accountSearchService.findAccountsByOwner("George"));
-    System.out.println("The accounts of the owner named George and balance above 500:");
-    System.out.println(accountSearchService.findAccountsByOwnerWithBalanceAbove("George", 500));
-    System.out.println("The transactions of account #3 above 250 and under 750");
-    System.out.println(acc3.getTransactionsBetween(100, 750));
-    System.out.println("Accounts with balance above 900:");
-    System.out.println(accountSearchService.findAccountsWithBalanceAbove(900));
+    System.out.println("Accounts grouped by owner name:");
+    System.out.println(accountSearchService.groupAccountsByOwner());
+    System.out.println();
+
+    System.out.println("Transactions grouped by type:");
+    System.out.println(acc3.groupTransactionsByType());
+    System.out.println();
+
+    System.out.println("Total amount per transaction type:");
+    System.out.println(acc3.getTotalAmountPerTransactionType());
 }

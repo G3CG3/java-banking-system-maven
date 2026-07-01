@@ -7,20 +7,14 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Account creation
 - Deposits
 - Withdrawals
-- Money transfers between accounts
-- Transaction history tracking
-- Transaction reporting
+- Money transfers
+- Transaction history
 - Transaction filtering
 - Account search
 - Account sorting
 - Transaction sorting
 - Bank reporting
 - Bank statistics
-- Transfer audit trail
-- Custom exception handling
-- Account validation
-- Service layer (initial refactoring)
-- Advanced account filtering
 
 ## Technologies
 
@@ -29,32 +23,29 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Collections Framework
 - Java Streams API
 - Service Layer Architecture
+- JUnit 5
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Docker
 
 ## Current Status
 
 ### Implemented
 
-- Account management
-- Bank entity
-- Transaction history
-- Transaction reporting
-- Transaction filtering
-- Account search
-- Account sorting
-- Transaction sorting
-- Bank reporting
-- Bank statistics
-- Transfer tracking
-- Business rule validation
+- Domain model
+- Service layer (initial refactoring)
 - Custom exceptions
 - Domain validation
-- Advanced account filtering
+- Business rule validation
+- Java Streams reporting
+- Grouping & aggregation
 
 ### Planned
 
 - Unit testing (JUnit)
-- Spring Boot migration
+- Spring Boot
 - REST APIs
 - JPA / Hibernate
 - Database integration
-- Docker support
+- Docker

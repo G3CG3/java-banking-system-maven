@@ -5,6 +5,8 @@ import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AccountSearchService {
     private final Bank bank;
@@ -47,5 +49,10 @@ public class AccountSearchService {
         return bank.getAccounts().stream()
                 .filter(account -> account.getOwnerName().equals(ownerName) && account.getBalance() > amount)
                 .toList();
+    }
+
+    public Map<String, List<Account>> groupAccountsByOwner() {
+        return bank.getAccounts().stream()
+                .collect(Collectors.groupingBy(Account::getOwnerName));
     }
 }

@@ -7,6 +7,8 @@ import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Account {
     private final int id;
@@ -156,5 +158,15 @@ public class Account {
         return transactions.stream()
                 .filter(t -> t.getAmount() >= min && t.getAmount() <= max)
                 .toList();
+    }
+
+    public Map<TransactionType, List<Transaction>> groupTransactionsByType() {
+        return transactions.stream()
+                .collect(Collectors.groupingBy(Transaction::getType));
+    }
+
+    public Map<TransactionType, Double> getTotalAmountPerTransactionType() {
+        return transactions.stream()
+                .collect(Collectors.groupingBy(Transaction::getType, Collectors.summingDouble(Transaction::getAmount)));
     }
 }
