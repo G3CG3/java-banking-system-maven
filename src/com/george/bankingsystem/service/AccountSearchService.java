@@ -55,4 +55,9 @@ public class AccountSearchService {
         return bank.getAccounts().stream()
                 .collect(Collectors.groupingBy(Account::getOwnerName));
     }
+
+    public Map<Boolean, List<Account>> partitionAccountsByPositiveBalance() {
+        return bank.getAccounts().stream()
+                .collect(Collectors.partitioningBy(a -> a.getBalance() > 0));
+    }
 }

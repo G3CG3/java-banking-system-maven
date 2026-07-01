@@ -169,4 +169,20 @@ public class Account {
         return transactions.stream()
                 .collect(Collectors.groupingBy(Transaction::getType, Collectors.summingDouble(Transaction::getAmount)));
     }
+
+    public boolean hasLargeTransaction(double amount) {
+        return transactions.stream()
+                .anyMatch(t -> t.getAmount() >= amount);
+    }
+
+    public boolean hasOnlyDeposits() {
+        return transactions.stream()
+                .allMatch(t -> t.getType() == TransactionType.DEPOSIT);
+    }
+
+    public boolean hasNoTransactions() {
+        return transactions.stream()
+                .findAny()
+                .isEmpty();
+    }
 }

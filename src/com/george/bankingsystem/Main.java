@@ -25,17 +25,23 @@ void main() {
     acc3.withdraw(250);
     acc3.withdraw(100);
 
+    acc4.deposit(750);
+
     bank.transfer(6, 8, 500);
 
     AccountSearchService accountSearchService = new AccountSearchService(bank);
-    System.out.println("Accounts grouped by owner name:");
-    System.out.println(accountSearchService.groupAccountsByOwner());
+    System.out.println("Accounts separated with positive and non positive balance:");
+    System.out.println(accountSearchService.partitionAccountsByPositiveBalance());
     System.out.println();
 
-    System.out.println("Transactions grouped by type:");
-    System.out.println(acc3.groupTransactionsByType());
+    System.out.println("Transactions exceeding the specified amount:");
+    System.out.println(acc3.hasLargeTransaction(500));
     System.out.println();
 
-    System.out.println("Total amount per transaction type:");
-    System.out.println(acc3.getTotalAmountPerTransactionType());
+    System.out.println("Are all the transactions of this account deposits?");
+    System.out.println(acc3.hasOnlyDeposits());
+
+    System.out.println("Does this account have no transactions?");
+    System.out.println(acc9.hasNoTransactions());
+    System.out.println(acc3.hasNoTransactions());
 }

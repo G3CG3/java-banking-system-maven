@@ -40,6 +40,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Business rule validation
 - Java Streams reporting
 - Grouping & aggregation
+- Stream-based business rule evaluation
 
 ### Planned
 
