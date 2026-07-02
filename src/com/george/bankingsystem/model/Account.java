@@ -112,18 +112,6 @@ public class Account {
         return amount <= 0;
     }
 
-    public List<Transaction> getTransactionsSortedByAmount() {
-        return transactions.stream()
-                .sorted(Comparator.comparing(Transaction::getAmount).reversed())
-                .toList();
-    }
-
-    public List<Transaction> getTransactionsSortedByDate() {
-        return transactions.stream()
-                .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
-                .toList();
-    }
-
     public List<Transaction> getTransactionsBetween(
             double min,
             double max
