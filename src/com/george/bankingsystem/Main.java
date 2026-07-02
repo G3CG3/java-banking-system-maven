@@ -1,6 +1,6 @@
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
-import com.george.bankingsystem.service.AccountSearchService;
+import com.george.bankingsystem.service.TransactionAnalysisService;
 
 void main() {
     Account acc3 = new Account(3, "George", 1000.0);
@@ -29,19 +29,14 @@ void main() {
 
     bank.transfer(6, 8, 500);
 
-    AccountSearchService accountSearchService = new AccountSearchService(bank);
-    System.out.println("Accounts separated with positive and non positive balance:");
-    System.out.println(accountSearchService.partitionAccountsByPositiveBalance());
-    System.out.println();
+    TransactionAnalysisService analysis = new TransactionAnalysisService(acc3);
 
-    System.out.println("Transactions exceeding the specified amount:");
-    System.out.println(acc3.hasLargeTransaction(500));
-    System.out.println();
+    System.out.println("Total deposits: ");
+    System.out.println(analysis.getTotalDeposits());
 
-    System.out.println("Are all the transactions of this account deposits?");
-    System.out.println(acc3.hasOnlyDeposits());
+    System.out.println("Average transaction amount: ");
+    System.out.println(analysis.getAverageTransactionAmount());
 
-    System.out.println("Does this account have no transactions?");
-    System.out.println(acc9.hasNoTransactions());
-    System.out.println(acc3.hasNoTransactions());
+    System.out.println("Transactions grouped by type: ");
+    System.out.println(analysis.groupTransactionsByType());
 }

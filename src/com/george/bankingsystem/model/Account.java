@@ -7,8 +7,6 @@ import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Account {
     private final int id;
@@ -114,31 +112,6 @@ public class Account {
         return amount <= 0;
     }
 
-    public double getTotalDeposits() {
-        return transactions.stream()
-                .filter(t -> t.getType() == TransactionType.DEPOSIT )
-                .mapToDouble(Transaction::getAmount)
-                .sum();
-    }
-
-    public double getTotalWithdrawals() {
-        return transactions.stream()
-                .filter(t -> t.getType() == TransactionType.WITHDRAW)
-                .mapToDouble((Transaction::getAmount))
-                .sum();
-    }
-
-    public int getTransactionCount() {
-        return transactions.size();
-    }
-
-    public double getAverageTransactionAmount() {
-        return transactions.stream()
-                .mapToDouble(Transaction::getAmount)
-                .average()
-                .orElse(0.0); // Throw exception is an alternative, but new accounts can have 0.0 as average
-    }
-
     public List<Transaction> getTransactionsSortedByAmount() {
         return transactions.stream()
                 .sorted(Comparator.comparing(Transaction::getAmount).reversed())
@@ -158,16 +131,6 @@ public class Account {
         return transactions.stream()
                 .filter(t -> t.getAmount() >= min && t.getAmount() <= max)
                 .toList();
-    }
-
-    public Map<TransactionType, List<Transaction>> groupTransactionsByType() {
-        return transactions.stream()
-                .collect(Collectors.groupingBy(Transaction::getType));
-    }
-
-    public Map<TransactionType, Double> getTotalAmountPerTransactionType() {
-        return transactions.stream()
-                .collect(Collectors.groupingBy(Transaction::getType, Collectors.summingDouble(Transaction::getAmount)));
     }
 
     public boolean hasLargeTransaction(double amount) {

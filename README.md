@@ -2,6 +2,8 @@
 
 A simple banking system built in Java as part of my Java Backend Developer roadmap.
 
+---
+
 ## Features
 
 - Account creation
@@ -16,25 +18,31 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Bank reporting
 - Bank statistics
 
+---
+
+## Architecture
+
+- Layered Architecture (in progress)
+- Service Layer
+
+---
+
 ## Technologies
 
 - Java
 - Object-Oriented Programming (OOP)
 - Collections Framework
 - Java Streams API
-- Service Layer Architecture
-- JUnit 5
-- Spring Boot
-- Spring Data JPA
-- Hibernate
-- Docker
+
+---
 
 ## Current Status
 
 ### Implemented
 
 - Domain model
-- Service layer (initial refactoring)
+- Service layer
+- Transaction analysis service
 - Custom exceptions
 - Domain validation
 - Business rule validation
@@ -44,9 +52,10 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 
 ### Planned
 
-- Unit testing (JUnit)
+- Unit testing (JUnit 5)
 - Spring Boot
 - REST APIs
-- JPA / Hibernate
+- Spring Data JPA
+- Hibernate
 - Database integration
 - Docker
