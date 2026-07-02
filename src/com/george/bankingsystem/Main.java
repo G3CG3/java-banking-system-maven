@@ -1,5 +1,6 @@
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
+import com.george.bankingsystem.service.AccountReportService;
 import com.george.bankingsystem.service.AccountSortingService;
 import com.george.bankingsystem.service.TransactionAnalysisService;
 import com.george.bankingsystem.service.TransactionSortingService;
@@ -29,15 +30,14 @@ void main() {
 
     acc4.deposit(750);
 
-    bank.transfer(6, 8, 500);
+    bank.transfer(3, 8, 500);
 
     AccountSortingService accountSorting = new AccountSortingService(bank);
 
     TransactionSortingService transactionSorting = new TransactionSortingService(acc3);
 
-    System.out.println(accountSorting.getAccountsSortedByBalance());
-    System.out.println(accountSorting.getAccountsSortedByOwnerName());
-
-    System.out.println(transactionSorting.getTransactionsSortedByDate());
-    System.out.println(transactionSorting.getTransactionsSortedByAmount());
+    AccountReportService reportService = new AccountReportService(acc3);
+    System.out.println(reportService.generateSummary());
+    System.out.println();
+    System.out.println(reportService.generateStatistics());
 }
