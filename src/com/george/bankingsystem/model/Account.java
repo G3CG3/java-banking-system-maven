@@ -5,7 +5,6 @@ import com.george.bankingsystem.exceptions.InvalidOwnerNameException;
 import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Account {
@@ -135,5 +134,9 @@ public class Account {
         return transactions.stream()
                 .findAny()
                 .isEmpty();
+    }
+
+    public boolean hasTransactions() {
+        return !transactions.isEmpty();
     }
 }

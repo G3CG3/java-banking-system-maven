@@ -2,7 +2,6 @@ import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
 import com.george.bankingsystem.service.AccountReportService;
 import com.george.bankingsystem.service.AccountSortingService;
-import com.george.bankingsystem.service.TransactionAnalysisService;
 import com.george.bankingsystem.service.TransactionSortingService;
 
 void main() {
@@ -37,7 +36,9 @@ void main() {
     TransactionSortingService transactionSorting = new TransactionSortingService(acc3);
 
     AccountReportService reportService = new AccountReportService(acc3);
-    System.out.println(reportService.generateSummary());
-    System.out.println();
-    System.out.println(reportService.generateStatistics());
+
+    System.out.println(bank.hasAccounts());
+
+    System.out.println(acc3.hasTransactions());
+    System.out.println(acc6.hasTransactions());
 }

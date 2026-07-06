@@ -92,4 +92,8 @@ public class Bank {
     public List<Account> getAccounts() {
         return List.copyOf(accounts);
     }
+
+    public boolean hasAccounts() {
+        return !accounts.isEmpty();
+    }
 }
