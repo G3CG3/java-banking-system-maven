@@ -45,50 +45,6 @@ public class Bank {
         fromAccount.withdraw(amount, transactionOut);
     }
 
-    public double getTotalBankBalance() {
-        return accounts.stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
-    }
-
-    public Account getRichestAccount() {
-        return accounts.stream()
-                .max(Comparator.comparing(Account::getBalance))
-                .orElseThrow(() -> new IllegalStateException("There are no accounts in the system."));
-    }
-
-    public double getAverageBalance() {
-        return accounts.stream()
-                .mapToDouble(Account::getBalance)
-                .average()
-                .orElse(0.0);
-    }
-
-    public long getAccountsCount() {
-        return accounts.stream()
-                .count();
-    }
-
-    public long getAccountsWithPositiveBalance() {
-        return accounts.stream()
-                .filter(account -> account.getBalance() > 0)
-                .count();
-    }
-
-    public double getHighestBalance() {
-        return accounts.stream()
-                .mapToDouble(Account::getBalance)
-                .max()
-                .orElse(0.0);
-    }
-
-    public double getLowestBalance() {
-        return accounts.stream()
-                .mapToDouble(Account::getBalance)
-                .min()
-                .orElse(0.0);
-    }
-
     public List<Account> getAccounts() {
         return List.copyOf(accounts);
     }
