@@ -49,6 +49,7 @@ A simple banking system built in Java as part of my Java Backend Developer roadm
 - Java Streams reporting
 - Grouping & aggregation
 - Stream-based business rule evaluation
+- Bank report generation
 
 ### Planned
 

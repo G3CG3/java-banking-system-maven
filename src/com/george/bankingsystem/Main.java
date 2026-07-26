@@ -1,8 +1,6 @@
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
-import com.george.bankingsystem.service.AccountReportService;
-import com.george.bankingsystem.service.AccountSortingService;
-import com.george.bankingsystem.service.TransactionSortingService;
+import com.george.bankingsystem.service.*;
 
 void main() {
     Account acc3 = new Account(3, "George", 1000.0);
@@ -31,14 +29,9 @@ void main() {
 
     bank.transfer(3, 8, 500);
 
-    AccountSortingService accountSorting = new AccountSortingService(bank);
+    AccountSearchService searchService = new AccountSearchService(bank);
+    BankReportService bankReportService = new BankReportService(bank);
 
-    TransactionSortingService transactionSorting = new TransactionSortingService(acc3);
-
-    AccountReportService reportService = new AccountReportService(acc3);
-
-    System.out.println(bank.hasAccounts());
-
-    System.out.println(acc3.hasTransactions());
-    System.out.println(acc6.hasTransactions());
+    System.out.println(bankReportService.generateBankSummary());
+    System.out.println(bankReportService.generateOwnerReport());
 }
