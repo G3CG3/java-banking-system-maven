@@ -20,14 +20,6 @@ public class AccountSearchService {
                 .filter(a -> a.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new AccountNotFoundException("The account with id " + id + " could not be found"));
-
-        /*
-        for (Account acc : accounts) {
-            if (acc.getId() == id)
-                return acc;
-        }
-        throw new AccountNotFoundException("The account with id " + id + " could not be found");
-         */
     }
 
     public List<Account> findAccountsByOwner(String ownerName) {
