@@ -17,26 +17,18 @@ public class Bank {
     }
 
     public void addAccount(Account account) {
-        /*
-        boolean exists = accounts.stream()
-                        .anyMatch(existingAccount -> existingAccount.getId() == account.getId());
-        if (exists) throw new DuplicateAccountException("An account with this id already exists");
-        */
-
         if (accounts.stream()
                 .anyMatch(existingAccount -> existingAccount.getId() == account.getId())) {
             throw new DuplicateAccountException("An account with this id already exists");
         }
-
-        /*
-        for (Account existingAccount : accounts) {
-            if (existingAccount.getId() == account.getId()) throw new DuplicateAccountException("An account with this id already exists");
-        }
-        */
         accounts.add(account);
     }
 
     public void transfer(int fromAccountId, int toAccountId, double amount) {
+        if (fromAccountId == toAccountId) {
+            throw new IllegalArgumentException("Source and destination accounts must be different.");
+        }
+
         Account toAccount  = accountSearchService.findAccountById(toAccountId);
         Account fromAccount = accountSearchService.findAccountById(fromAccountId);
         Transaction transactionOut = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);

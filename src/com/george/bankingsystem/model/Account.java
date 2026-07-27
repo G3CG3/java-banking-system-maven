@@ -1,6 +1,7 @@
 package com.george.bankingsystem.model;
 
 import com.george.bankingsystem.exceptions.InsufficientFundsException;
+import com.george.bankingsystem.exceptions.InvalidAccountIdException;
 import com.george.bankingsystem.exceptions.InvalidOwnerNameException;
 import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 
@@ -14,6 +15,9 @@ public class Account {
     private final List<Transaction> transactions;
 
     public Account(int id, String ownerName, double balance) {
+        if (id <= 0) {
+            throw new InvalidAccountIdException("Account id must be greater than zero.");
+        }
         this.id = id;
 
         if (ownerName == null || ownerName.isBlank()) {

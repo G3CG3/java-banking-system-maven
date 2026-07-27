@@ -19,6 +19,7 @@ void main() {
     bank.addAccount(acc7);
     bank.addAccount(acc8);
     bank.addAccount(acc9);
+    bank.addAccount(null);
 
     acc3.deposit(750);
     acc3.deposit(250);

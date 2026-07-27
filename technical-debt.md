@@ -25,3 +25,8 @@
 
 - Extract transfer logic into a dedicated `TransferService`.
 - Review service responsibilities after Spring Boot migration.
+
+### Validation
+
+- Consider rejecting `Double.NaN` and infinite values for monetary operations.
+- Consider validating that `Bank.addAccount()` rejects null accounts with a meaningful exception.
