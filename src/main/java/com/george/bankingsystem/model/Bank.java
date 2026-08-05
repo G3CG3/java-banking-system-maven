@@ -33,8 +33,8 @@ public class Bank {
         Account fromAccount = accountSearchService.findAccountById(fromAccountId);
         Transaction transactionOut = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
         Transaction transactionIn = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
-        toAccount.deposit(amount, transactionIn);
         fromAccount.withdraw(amount, transactionOut);
+        toAccount.deposit(amount, transactionIn);
     }
 
     public List<Account> getAccounts() {
