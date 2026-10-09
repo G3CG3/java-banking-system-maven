@@ -23,6 +23,9 @@ public class AccountSearchService {
     }
 
     public List<Account> findAccountsByOwner(String ownerName) {
+        if (ownerName == null || ownerName.isBlank()) {
+            throw new IllegalArgumentException("Owner's name cannot be null or blank");
+        }
         return bank.getAccounts().stream()
                 .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName))
                 .toList();
@@ -38,6 +41,9 @@ public class AccountSearchService {
             String ownerName,
             double amount
     ) {
+        if (ownerName == null || ownerName.isBlank()) {
+            throw new IllegalArgumentException("Owner's name cannot be null or blank");
+        }
         return bank.getAccounts().stream()
                 .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName) && account.getBalance() > amount)
                 .toList();

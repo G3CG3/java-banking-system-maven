@@ -86,4 +86,16 @@ public class AccountSearchServiceTest {
                 () -> assertEquals(2, partitioned.size(), "Map should have exactly 2 keys")
         );
     }
+
+    @Test
+    void shouldRejectNullOrBlankOwnerName() {
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwner(null)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove(null, 1500)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwner("")),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove("", 1500)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwner(" ")),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove(" ", 1500))
+        );
+    }
 }
