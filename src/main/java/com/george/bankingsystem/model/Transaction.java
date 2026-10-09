@@ -18,6 +18,12 @@ public class Transaction {
     }
 
     public Transaction(TransactionType type, double amount, Integer fromAccountId, Integer toAccountId) {
+        if (type == null) {
+            throw new IllegalArgumentException("TransactionType cannot be null.");
+        }
+        if (amount <= 0 || !Double.isFinite(amount))  {
+            throw new IllegalArgumentException("The amount must be non-negative and finite.");
+        }
         this.id = nextId++;
         this.type = type;
         this.amount = amount;

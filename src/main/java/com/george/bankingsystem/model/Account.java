@@ -26,7 +26,7 @@ public class Account {
         this.ownerName = ownerName;
 
         if (balance < 0 || !Double.isFinite(balance)) {
-            throw new NegativeInitialBalanceException("The initial balance should be a non negative number");
+            throw new NegativeInitialBalanceException("The initial balance must be non-negative and finite.");
         }
         this.balance = balance;
 
@@ -83,6 +83,7 @@ public class Account {
     }
 
     public void deposit(double amount) {
+        validateDeposit(amount);
         Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount);
         this.deposit(amount, transaction);
     }
@@ -94,6 +95,7 @@ public class Account {
     }
 
     public void withdraw(double amount) {
+        validateWithdrawal(amount);
         Transaction transaction = new Transaction(TransactionType.WITHDRAW, amount);
         this.withdraw(amount, transaction);
     }
