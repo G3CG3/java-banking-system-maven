@@ -25,7 +25,7 @@ public class Account {
         }
         this.ownerName = ownerName;
 
-        if (balance < 0) {
+        if (balance < 0 || !Double.isFinite(balance)) {
             throw new NegativeInitialBalanceException("The initial balance should be a non negative number");
         }
         this.balance = balance;
@@ -91,6 +91,9 @@ public class Account {
         if (isInvalidAmount(amount)) {
             throw new IllegalArgumentException("The depositing amount should be a positive number");
         }
+        if (!Double.isFinite(balance + amount)) {
+            throw new IllegalArgumentException("The new balance should be a finite number");
+        }
         balance += amount;
         transactions.add(transaction);
     }
@@ -112,7 +115,7 @@ public class Account {
     }
 
     private boolean isInvalidAmount(double amount) {
-        return amount <= 0;
+        return amount <= 0 || !Double.isFinite(amount);
     }
 
     public List<Transaction> getTransactionsBetween(

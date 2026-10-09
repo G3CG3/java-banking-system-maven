@@ -9,6 +9,8 @@ import com.george.bankingsystem.model.Transaction;
 import com.george.bankingsystem.model.TransactionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -22,7 +24,6 @@ public class BankTest {
     void setUp() {
         this.bank = new Bank();
         this.account1 = new Account(1, "George", 1000.0);
-
     }
 
     @Test
@@ -96,7 +97,7 @@ public class BankTest {
         int account1TransactionsCount = account1.getTransactions().size();
         int account2TransactionsCount = account2.getTransactions().size();
 
-        InsufficientFundsException exception = assertThrows(InsufficientFundsException.class, () -> bank.transfer(1, 2, 5000));
+        assertThrows(InsufficientFundsException.class, () -> bank.transfer(1, 2, 5000));
 
         assertAll(
                 () -> assertEquals(account1StartingBalance, account1.getBalance(), "The balance should be the same after a failed transaction"),
@@ -139,5 +140,37 @@ public class BankTest {
         IllegalArgumentException  exception = assertThrows(IllegalArgumentException.class, () -> bank.transfer(1, 1, 100));
 
         assertEquals("Source and destination accounts must be different.", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTransferringLeadsToOverflowAccount() {
+        bank.addAccount(account1);
+        Account account2 = new Account(2, "Maria", Double.MAX_VALUE);
+        bank.addAccount(account2);
+
+        assertThrows(IllegalArgumentException.class, () -> bank.transfer(1, 2, Double.MAX_VALUE));
+        assertAll("Failed transaction state verification",
+                () -> assertEquals(1000, account1.getBalance(), "The balance should be the same after a failed transaction"),
+                () -> assertEquals(Double.MAX_VALUE, account2.getBalance(), "The balance should be the same after a failed transaction"),
+                () -> assertEquals(0, account1.getTransactions().size(), "The transactions list should be empty."),
+                () -> assertEquals(0, account2.getTransactions().size(), "The transactions list should be empty.")
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {-100.0, 0.0, Double.NaN, Double.POSITIVE_INFINITY})
+    void shouldThrowExceptionWhenTransferAmountIsInvalid(double withdrawAmount) {
+        bank.addAccount(account1);
+        Account account2 = new Account(2, "Maria", 1000);
+        bank.addAccount(account2);
+
+        assertThrows(IllegalArgumentException.class, () -> bank.transfer(1, 2, withdrawAmount));
+
+        assertAll("Failed transaction state verification",
+                () -> assertEquals(1000, account1.getBalance(), "The balance should be the same after a failed transaction"),
+                () -> assertEquals(1000, account2.getBalance(), "The balance should be the same after a failed transaction"),
+                () -> assertEquals(0, account1.getTransactions().size(), "The transactions list should be empty."),
+                () -> assertEquals(0, account2.getTransactions().size(), "The transactions list should be empty.")
+        );
     }
 }

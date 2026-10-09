@@ -1,5 +1,7 @@
 package com.george.bankingsystem;
 
+import com.george.bankingsystem.exceptions.InsufficientFundsException;
+import com.george.bankingsystem.exceptions.NegativeInitialBalanceException;
 import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Transaction;
 import com.george.bankingsystem.model.TransactionType;
@@ -29,6 +31,12 @@ public class AccountTest {
     }
 
     @ParameterizedTest
+    @ValueSource(doubles = {-100.0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.NaN})
+    void shouldThrowExceptionAtAccountCreationWithInvalidBalance(double balance) {
+        assertThrows(NegativeInitialBalanceException.class, () -> new Account(2, "Marian", balance));
+    }
+
+    @ParameterizedTest
     @CsvSource({
             "100.0, 1100.0",
             "0.01, 1000.01",
@@ -48,7 +56,7 @@ public class AccountTest {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {-100.0, -1.0, -0.01, 0.0})
+    @ValueSource(doubles = {-100.0, -1.0, -0.01, 0.0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.NaN})
     void shouldThrowExceptionWhenDepositAmountIsInvalid(double amount) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> account.deposit(amount));
 
@@ -65,5 +73,28 @@ public class AccountTest {
             () -> assertEquals(size, account.getTransactions().size(), "Failed transactions should not be taken into account"),
             () -> assertEquals(1000.0,  account.getBalance(), "Incorrect balance value")
         );
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {-100.0, -1.0, -0.01, 0.0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.NaN})
+    void shouldThrowExceptionWhenWithdrawAmountIsInvalid(double amount) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> account.withdraw(amount));
+
+        assertEquals("The withdrawing amount should be a positive number", exception.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenWithdrawAmountIsLargerThanBalance() {
+        assertThrows(InsufficientFundsException.class, () -> account.withdraw(2000.0));
+        assertEquals(1000.0, account.getBalance(), "The balance should remain unchanged");
+        assertEquals(0, account.getTransactions().size(), "Failed transactions should not be taken into account");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDepositExceedsFiniteAmount() {
+        Account account1 = new Account(2, "Maria", Double.MAX_VALUE);
+        assertThrows(IllegalArgumentException.class, () -> account1.deposit(Double.MAX_VALUE));
+        assertEquals(Double.MAX_VALUE, account1.getBalance(), "The balance should remain unchanged");
+        assertEquals(0, account1.getTransactions().size(), "Failed transactions should not be taken into account");
     }
 }
