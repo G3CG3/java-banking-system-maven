@@ -4,7 +4,6 @@ import com.george.bankingsystem.exceptions.DuplicateAccountException;
 import com.george.bankingsystem.service.AccountSearchService;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Bank {

@@ -39,7 +39,7 @@ public class AccountSearchService {
             double amount
     ) {
         return bank.getAccounts().stream()
-                .filter(account -> account.getOwnerName().equals(ownerName) && account.getBalance() > amount)
+                .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName) && account.getBalance() > amount)
                 .toList();
     }
 
