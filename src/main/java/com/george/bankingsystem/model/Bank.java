@@ -1,6 +1,7 @@
 package com.george.bankingsystem.model;
 
 import com.george.bankingsystem.exceptions.DuplicateAccountException;
+import com.george.bankingsystem.exceptions.InsufficientFundsException;
 import com.george.bankingsystem.service.AccountSearchService;
 
 import java.util.ArrayList;
@@ -23,19 +24,23 @@ public class Bank {
         accounts.add(account);
     }
 
+
     public void transfer(int fromAccountId, int toAccountId, double amount) {
-        if (amount <= 0 || !Double.isFinite(amount)) {
-            throw new IllegalArgumentException("Amount should be positive and finite");
-        }
         if (fromAccountId == toAccountId) {
             throw new IllegalArgumentException("Source and destination accounts must be different.");
         }
-        Account toAccount  = accountSearchService.findAccountById(toAccountId);
+
         Account fromAccount = accountSearchService.findAccountById(fromAccountId);
-        if (!Double.isFinite(fromAccount.getBalance() - amount)) throw new IllegalArgumentException("The balance of account " + fromAccountId + " will overflow.");
-        if (fromAccount.getBalance() - amount < 0)  throw new IllegalArgumentException("The account " + fromAccountId + " has insufficient funds.");
-        Transaction transactionOut = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
-        Transaction transactionIn = new Transaction(TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
+        Account toAccount = accountSearchService.findAccountById(toAccountId);
+
+        fromAccount.validateWithdrawal(amount);
+        toAccount.validateDeposit(amount);
+
+        Transaction transactionOut = new Transaction(
+                TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
+        Transaction transactionIn = new Transaction(
+                TransactionType.TRANSFER, amount, fromAccountId, toAccountId);
+
         fromAccount.withdraw(amount, transactionOut);
         toAccount.deposit(amount, transactionIn);
     }

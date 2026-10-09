@@ -144,16 +144,17 @@ public class BankTest {
 
     @Test
     void shouldThrowExceptionWhenTransferringLeadsToOverflowAccount() {
-        bank.addAccount(account1);
         Account account2 = new Account(2, "Maria", Double.MAX_VALUE);
+        Account account3 = new Account(3, "Nick", Double.MAX_VALUE);
         bank.addAccount(account2);
+        bank.addAccount(account3);
 
-        assertThrows(IllegalArgumentException.class, () -> bank.transfer(1, 2, Double.MAX_VALUE));
+        assertThrows(IllegalArgumentException.class, () -> bank.transfer(2, 3, Double.MAX_VALUE));
         assertAll("Failed transaction state verification",
-                () -> assertEquals(1000, account1.getBalance(), "The balance should be the same after a failed transaction"),
                 () -> assertEquals(Double.MAX_VALUE, account2.getBalance(), "The balance should be the same after a failed transaction"),
-                () -> assertEquals(0, account1.getTransactions().size(), "The transactions list should be empty."),
-                () -> assertEquals(0, account2.getTransactions().size(), "The transactions list should be empty.")
+                () -> assertEquals(Double.MAX_VALUE, account3.getBalance(), "The balance should be the same after a failed transaction"),
+                () -> assertEquals(0, account2.getTransactions().size(), "The transactions list should be empty."),
+                () -> assertEquals(0, account3.getTransactions().size(), "The transactions list should be empty.")
         );
     }
 

@@ -88,12 +88,7 @@ public class Account {
     }
 
     void deposit(double amount, Transaction transaction) {
-        if (isInvalidAmount(amount)) {
-            throw new IllegalArgumentException("The depositing amount should be a positive number");
-        }
-        if (!Double.isFinite(balance + amount)) {
-            throw new IllegalArgumentException("The new balance should be a finite number");
-        }
+        validateDeposit(amount);
         balance += amount;
         transactions.add(transaction);
     }
@@ -104,12 +99,7 @@ public class Account {
     }
 
     void withdraw(double amount, Transaction transaction) {
-        if (isInvalidAmount(amount)) {
-            throw new IllegalArgumentException("The withdrawing amount should be a positive number");
-        }
-        if (balance < amount) {
-            throw new InsufficientFundsException("You don't have sufficient funds in your account for the withdrawal");
-        }
+        validateWithdrawal(amount);
         balance -= amount;
         transactions.add(transaction);
     }
@@ -145,5 +135,23 @@ public class Account {
 
     public boolean hasTransactions() {
         return !transactions.isEmpty();
+    }
+
+    void validateDeposit(double amount) {
+        if (isInvalidAmount(amount)) {
+            throw new IllegalArgumentException("The depositing amount should be a positive number");
+        }
+        if (!Double.isFinite(balance + amount)) {
+            throw new IllegalArgumentException("The new balance should be a finite number");
+        }
+    }
+
+    void validateWithdrawal(double amount) {
+        if (isInvalidAmount(amount)) {
+            throw new IllegalArgumentException("The withdrawing amount should be a positive number");
+        }
+        if (balance < amount) {
+            throw new InsufficientFundsException("You don't have sufficient funds in your account for the withdrawal");
+        }
     }
 }
