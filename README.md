@@ -1,62 +1,42 @@
 # Java Banking System
 
-A simple banking system built in Java as part of my Java Backend Developer roadmap.
-
----
+A banking system built with Java and Maven as part of my Java Backend Developer portfolio.
 
 ## Features
 
-- Account creation
-- Deposits
-- Withdrawals
-- Money transfers
+- Account creation and validation
+- Deposits and withdrawals
+- Money transfers between accounts
 - Transaction history
-- Transaction filtering
-- Account search
-- Account sorting
-- Transaction sorting
-- Bank reporting
+- Account search and sorting
+- Transaction analysis and sorting
+- Account and bank reporting
 - Bank statistics
+- Custom exception handling
 
----
+## Project Structure
 
-## Architecture
-
-- Layered Architecture (in progress)
-- Service Layer
-
----
+- `model` — Core banking entities and transaction types
+- `service` — Account search, sorting, analysis and reporting operations
+- `exceptions` — Custom exceptions
+- `src/test` — Unit tests for account operations, bank operations and account search
 
 ## Technologies
 
 - Java
+- Maven
 - Object-Oriented Programming (OOP)
 - Collections Framework
 - Java Streams API
+- JUnit 5
 
----
+## Testing
 
-## Current Status
+Unit tests are written using JUnit 5.
 
-### Implemented
+## Future Improvements
 
-- Domain model
-- Service layer
-- Transaction analysis service
-- Custom exceptions
-- Domain validation
-- Business rule validation
-- Java Streams reporting
-- Grouping & aggregation
-- Stream-based business rule evaluation
-- Bank report generation
-
-### Planned
-
-- Unit testing (JUnit 5)
-- Spring Boot
-- REST APIs
-- Spring Data JPA
-- Hibernate
+- Spring Boot REST API
+- Spring Data JPA and Hibernate
 - Database integration
-- Docker
+- Docker support
