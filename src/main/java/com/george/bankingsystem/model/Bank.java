@@ -17,6 +17,9 @@ public class Bank {
     }
 
     public void addAccount(Account account) {
+        if (account == null) {
+            throw new IllegalArgumentException("The account cannot be null.");
+        }
         if (accounts.stream()
                 .anyMatch(existingAccount -> existingAccount.getId() == account.getId())) {
             throw new DuplicateAccountException("An account with this id already exists");

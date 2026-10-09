@@ -174,4 +174,11 @@ public class BankTest {
                 () -> assertEquals(0, account2.getTransactions().size(), "The transactions list should be empty.")
         );
     }
+
+    @Test
+    void shouldThrowExceptionWhenAccountIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> bank.addAccount(null), "Adding a null account should throw an exception");
+
+        assertEquals(0, bank.getAccounts().size(), "Account list should be empty.");
+    }
 }
