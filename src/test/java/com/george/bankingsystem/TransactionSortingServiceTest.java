@@ -10,6 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class TransactionSortingServiceTest {
     private TransactionSortingService transactionSortingService;
@@ -42,5 +44,19 @@ public class TransactionSortingServiceTest {
                 .hasSize(4)
                 .extracting(Transaction::getTimestamp)
                 .isSortedAccordingTo(Comparator.reverseOrder());
+    }
+
+    @Test
+    void shouldReturnEmptyListForAnAccountWithNoTransactions() {
+        Account account1 = new Account(2, "John", 2000);
+        TransactionSortingService service = new TransactionSortingService(account1);
+
+        List<Transaction> sortedTransactionsByDate = service.getTransactionsSortedByDate();
+        List<Transaction> sortedTransactionsByAmount = service.getTransactionsSortedByAmount();
+
+        assertAll(
+                () -> assertThat(sortedTransactionsByDate).isEmpty(),
+                () -> assertThat(sortedTransactionsByAmount).isEmpty()
+        );
     }
 }
