@@ -46,8 +46,7 @@ public class BankAnalysisService {
     }
 
     public long getAccountsCount() {
-        return bank.getAccounts().stream()
-                .count();
+        return bank.getAccounts().size();
     }
 
     public long getAccountsWithPositiveBalance() {
