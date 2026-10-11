@@ -13,10 +13,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountSearchServiceTest {
-    Bank bank;
-    AccountSearchService accountSearchService;
-    Account account1;
-    Account account2;
+    private Bank bank;
+    private AccountSearchService accountSearchService;
+    private Account account1;
+    private Account account2;
 
     @BeforeEach
     void setUp() {

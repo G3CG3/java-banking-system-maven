@@ -1,7 +1,10 @@
 package com.george.bankingsystem.service;
 
+import com.george.bankingsystem.model.Account;
 import com.george.bankingsystem.model.Bank;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BankReportService {
@@ -24,7 +27,12 @@ public class BankReportService {
     }
 
     public String generateOwnerReport() {
-        return searchService.groupAccountsByOwner()
+        Map<String, List<Account>> accountsByOwner = searchService.groupAccountsByOwner();
+        if (accountsByOwner.isEmpty()) {
+            return "No accounts available.";
+        }
+
+        return accountsByOwner
                 .entrySet()
                 .stream()
                 .map(entry -> entry.getKey() + " -> " + entry.getValue().size() + " accounts")
