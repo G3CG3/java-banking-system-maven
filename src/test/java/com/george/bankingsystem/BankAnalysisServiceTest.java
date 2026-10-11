@@ -78,6 +78,11 @@ public class BankAnalysisServiceTest {
         Bank emptyBank = new Bank();
         BankAnalysisService service = new BankAnalysisService(emptyBank);
 
-        assertThrows(IllegalStateException.class, service::getRichestAccount);
+        assertAll(
+                () -> assertThrows(IllegalStateException.class, service::getRichestAccount),
+                () -> assertEquals(0.0, service.getHighestBalance()),
+                () -> assertEquals(0.0, service.getLowestBalance()),
+                () -> assertEquals(0, service.getAccountsWithPositiveBalance())
+        );
     }
 }
