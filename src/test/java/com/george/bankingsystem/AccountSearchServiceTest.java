@@ -108,4 +108,41 @@ public class AccountSearchServiceTest {
     void shouldReturnEmptyListWhenThereAreNoAccountsAboveABalance() {
         assertEquals(List.of(), accountSearchService.findAccountsWithBalanceAbove(3000));
     }
+
+    @Test
+    void shouldReturnEmptyResultsWhenBankHasNoAccounts() {
+        Bank emptyBank = new Bank();
+        AccountSearchService service = new AccountSearchService(emptyBank);
+
+        assertAll(
+                () -> assertThrows(AccountNotFoundException.class, () -> service.findAccountById(1)),
+                () -> assertTrue(service.findAccountsByOwner("George").isEmpty()),
+                () -> assertTrue(service.findAccountsWithBalanceAbove(1000).isEmpty()),
+                () -> assertTrue(service.findAccountsByOwnerWithBalanceAbove("George", 1000).isEmpty()),
+                () -> assertTrue(service.groupAccountsByOwner().isEmpty()),
+                () -> assertEquals(Map.of(true, List.of(), false, List.of()), service.partitionAccountsByPositiveBalance()
+                )
+        );
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAmountIsNanOrInfinite() {
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsWithBalanceAbove(Double.NaN)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsWithBalanceAbove(Double.POSITIVE_INFINITY)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsWithBalanceAbove(Double.NEGATIVE_INFINITY)),
+
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove("George", Double.NEGATIVE_INFINITY)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove("George", Double.POSITIVE_INFINITY)),
+                () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove("George", Double.NaN))
+        );
+    }
+
+    @Test
+    void shouldAllowNegativeBalanceThreshold() {
+        assertAll(
+                () -> assertEquals(List.of(account1, account2), accountSearchService.findAccountsWithBalanceAbove(-1)),
+                () -> assertEquals(List.of(account1), accountSearchService.findAccountsByOwnerWithBalanceAbove("George", -1))
+        );
+    }
 }

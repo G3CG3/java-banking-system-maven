@@ -32,6 +32,10 @@ public class AccountSearchService {
     }
 
     public List<Account> findAccountsWithBalanceAbove(double amount) {
+        if (!Double.isFinite(amount)) {
+            throw new IllegalArgumentException("Amount must be finite.");
+        }
+
         return bank.getAccounts().stream()
                 .filter(account -> account.getBalance() > amount)
                 .toList();
@@ -44,6 +48,11 @@ public class AccountSearchService {
         if (ownerName == null || ownerName.isBlank()) {
             throw new IllegalArgumentException("Owner's name cannot be null or blank");
         }
+
+        if (!Double.isFinite(amount)) {
+            throw new IllegalArgumentException("Amount must be finite.");
+        }
+
         return bank.getAccounts().stream()
                 .filter(account -> account.getOwnerName().equalsIgnoreCase(ownerName) && account.getBalance() > amount)
                 .toList();
