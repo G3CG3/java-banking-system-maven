@@ -98,4 +98,14 @@ public class AccountSearchServiceTest {
                 () -> assertThrows(IllegalArgumentException.class, () -> accountSearchService.findAccountsByOwnerWithBalanceAbove(" ", 1500))
         );
     }
+
+    @Test
+    void shouldReturnEmptyListWhenOwnerNameIsUnknown() {
+        assertEquals(List.of(), accountSearchService.findAccountsByOwner("Unknown"));
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenThereAreNoAccountsAboveABalance() {
+        assertEquals(List.of(), accountSearchService.findAccountsWithBalanceAbove(3000));
+    }
 }
