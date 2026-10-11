@@ -22,7 +22,7 @@ public class AccountReportServiceTest {
     }
 
     @Test
-    void shouldReturnAccountSummaryReport() {
+    void shouldReturnAccountSummaryReportForAccountWithNoTransactions() {
         String report = accountReportService.generateSummary();
 
         assertAll(
@@ -47,6 +47,25 @@ public class AccountReportServiceTest {
         assertAll(
                 () -> assertTrue(report.contains("DEPOSIT: 1000.0")),
                 () -> assertTrue(report.contains("WITHDRAW: 500.0"))
+        );
+    }
+
+    @Test
+    void shouldReturnAccountSummaryReport() {
+        Account account2 = new Account(2, "Joe", 3000.0);
+        account2.deposit(1000.0);
+        account2.withdraw(500.0);
+        AccountReportService service = new AccountReportService(account2);
+
+        String report = service.generateSummary();
+
+        assertAll(
+                () -> assertTrue(report.contains("Account #2")),
+                () -> assertTrue(report.contains("Owner: Joe")),
+                () -> assertTrue(report.contains("Transactions: 2")),
+                () -> assertTrue(report.contains("Total Deposits: 1000.0")),
+                () -> assertTrue(report.contains("Total Withdrawals: 500.0")),
+                () -> assertTrue(report.contains("Average Transaction: 750.0"))
         );
     }
 }
