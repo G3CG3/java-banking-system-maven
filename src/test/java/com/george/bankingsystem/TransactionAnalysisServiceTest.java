@@ -77,4 +77,19 @@ public class TransactionAnalysisServiceTest {
                 () -> assertEquals(1000.0, map.get(TransactionType.WITHDRAW))
         );
     }
+
+    @Test
+    void shouldReturnNothingWhenThereAreNoTransactions() {
+        Account account1 = new Account(1, "John", 1000.0);
+        TransactionAnalysisService service = new TransactionAnalysisService(account1);
+
+        assertAll(
+                () -> assertEquals(0.0, service.getTotalDeposits()),
+                () -> assertEquals(0.0, service.getTotalWithdrawals()),
+                () -> assertEquals(0, service.getTransactionCount()),
+                () -> assertEquals(0.0, service.getAverageTransactionAmount()),
+                () -> assertTrue(service.groupTransactionsByType().isEmpty()),
+                () -> assertTrue(service.getTotalAmountPerTransactionType().isEmpty())
+        );
+    }
 }
