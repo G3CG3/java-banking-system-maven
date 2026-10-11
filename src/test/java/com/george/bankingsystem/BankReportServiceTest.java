@@ -42,7 +42,7 @@ public class BankReportServiceTest {
     }
 
     @Test
-    void shouldReturnBankAccountSummaryWhenBankIsEmpty() {
+    void shouldThrowExceptionWhenGeneratingSummaryForEmptyBank() {
         assertThrows(IllegalStateException.class, () -> bankReportService.generateBankSummary());
     }
 }
