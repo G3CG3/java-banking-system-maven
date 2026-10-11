@@ -45,4 +45,18 @@ public class BankReportServiceTest {
     void shouldThrowExceptionWhenGeneratingSummaryForEmptyBank() {
         assertThrows(IllegalStateException.class, () -> bankReportService.generateBankSummary());
     }
+
+    @Test
+    void shouldReturnOwnerReport() {
+        bank.addAccount(new Account(1, "George", 1000.0));
+        bank.addAccount(new Account(2, "George", 2000.0));
+        bank.addAccount(new Account(3, "Jane", 1500.0));
+
+        String report = bankReportService.generateOwnerReport();
+
+        assertAll(
+                () -> assertTrue(report.contains("George -> 2 accounts")),
+                () -> assertTrue(report.contains("Jane -> 1 accounts"))
+        );
+    }
 }
