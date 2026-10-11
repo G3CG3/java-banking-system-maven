@@ -2,7 +2,6 @@ package com.george.bankingsystem.service;
 
 import com.george.bankingsystem.model.Account;
 
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AccountReportService {
@@ -21,10 +20,13 @@ public class AccountReportService {
                 "\nTotal Deposits: " + analysisService.getTotalDeposits() +
                 "\nTotal Withdrawals: " + analysisService.getTotalWithdrawals() +
                 "\nAverage Transaction: " + analysisService.getAverageTransactionAmount();
-
     }
 
     public String generateStatistics() {
+        if (analysisService.getTransactionCount() == 0) {
+            return "No transactions available.";
+        }
+
         return "Transaction totals:\n" +
                 analysisService.getTotalAmountPerTransactionType()
                 .entrySet()
