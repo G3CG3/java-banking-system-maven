@@ -22,7 +22,7 @@ public class Transaction {
             throw new IllegalArgumentException("TransactionType cannot be null.");
         }
         if (amount <= 0 || !Double.isFinite(amount))  {
-            throw new IllegalArgumentException("The amount must be non-negative and finite.");
+            throw new IllegalArgumentException("The amount must be positive and finite.");
         }
         this.id = nextId++;
         this.type = type;
