@@ -181,4 +181,21 @@ public class BankTest {
 
         assertEquals(0, bank.getAccounts().size(), "Account list should be empty.");
     }
+
+    @Test
+    void shouldThrowExceptionWhenTryingToAccessOriginalList() {
+        bank.addAccount(account1);
+        List<Account> accounts = bank.getAccounts();
+
+        assertThrows(UnsupportedOperationException.class, () -> accounts.add(new Account(2, "Maria", 500.0)));
+        assertEquals(1, bank.getAccounts().size());
+    }
+
+    @Test
+    void shouldCheckIfTheBankHasAccounts() {
+        assertFalse(bank.hasAccounts());
+
+        bank.addAccount(account1);
+        assertTrue(bank.hasAccounts());
+    }
 }
