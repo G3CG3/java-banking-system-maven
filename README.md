@@ -19,7 +19,7 @@ A banking system built with Java and Maven as part of my Java Backend Developer 
 - `model` — Core banking entities and transaction types
 - `service` — Account search, sorting, analysis and reporting operations
 - `exceptions` — Custom exceptions
-- `src/test` — Unit tests for account operations, bank operations and account search
+- `src/test` — Unit tests for models, services and banking operations
 
 ## Technologies
 
@@ -29,10 +29,13 @@ A banking system built with Java and Maven as part of my Java Backend Developer 
 - Collections Framework
 - Java Streams API
 - JUnit 5
+- AssertJ
 
 ## Testing
 
-Unit tests are written using JUnit 5.
+The project includes unit tests covering account operations, bank transfers, validation, transaction handling, analysis and reporting.
+
+**Latest test run**: 101 tests passed.
 
 ## Future Improvements
 
